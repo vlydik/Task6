@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Task6.MiddleWares;
 using Task6.Services;
 
 namespace Task6
@@ -30,6 +31,7 @@ namespace Task6
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMiddleware<LoggingMiddleWare>();
             }
 
 
