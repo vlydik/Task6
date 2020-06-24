@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Task6.Services;
 
 namespace Task6
@@ -31,7 +25,7 @@ namespace Task6
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbService dbService)
         {
             if (env.IsDevelopment())
             {
@@ -51,12 +45,12 @@ namespace Task6
                 else
                 {
                     string index = context.Request.Headers["Index"].ToString();
-                    if (!IDbService.CheckStudent(index))
+                    if (!dbService.CheckStudent(index))
                     {
                         await context.Response.WriteAsync("Student was not found");
                         return;
                     }
-
+                    await next();
 
                 }
                 await next();

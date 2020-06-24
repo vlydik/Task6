@@ -7,6 +7,6 @@ namespace Task6.Services
 {
     public interface IDbService
     {
-        public bool CheckStudent(string index);
+         bool CheckStudent(string index);
     }
 }
